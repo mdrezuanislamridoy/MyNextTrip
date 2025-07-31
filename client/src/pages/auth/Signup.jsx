@@ -8,7 +8,9 @@ export default function Signup() {
     email: "",
     password: "",
     verificationCode: "",
+    role: "",
   });
+  const [isAgent, setIsAgent] = useState();
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
 
@@ -37,7 +39,8 @@ export default function Signup() {
       formData.name,
       formData.email,
       formData.password,
-      formData.verificationCode
+      formData.verificationCode,
+      formData.role
     );
   };
 
@@ -77,7 +80,6 @@ export default function Signup() {
           placeholder="Harry Potter..."
           className="outline-none border-2 border-slate-400 rounded-full py-1 px-2"
         />
-
         <label htmlFor="email">Enter Your Email Here</label>
         <input
           type="email"
@@ -137,6 +139,26 @@ export default function Signup() {
           value={formData.password}
           className="outline-none border-2 border-slate-400 rounded-full py-1 px-2 "
         />
+        <div className="flex">
+          <input
+            type="radio"
+            onChange={handleChange}
+            name="role"
+            id="user"
+            checked={formData.role === "user"}
+            value="user"
+          />
+          <label htmlFor="user">User</label>
+          <input
+            type="radio"
+            id="agency"
+            name="role"
+            value="agency"
+            checked={formData.role === "agency"}
+            onChange={handleChange}
+          />
+          <label htmlFor="agency">Agency</label>
+        </div>
         <button
           type="submit"
           disabled={formData.verificationCode ? false : true}

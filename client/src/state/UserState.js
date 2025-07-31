@@ -27,7 +27,7 @@ const authUser = create((set) => {
       }
     },
 
-    createUser: async (name, email, password, verificationCode) => {
+    createUser: async (name, email, password, verificationCode, role) => {
       set({ loading: true, error: null });
 
       try {
@@ -36,6 +36,7 @@ const authUser = create((set) => {
           email,
           password,
           verificationCode,
+          role,
         });
         set({
           user: res.data.user,
@@ -188,7 +189,15 @@ const authUser = create((set) => {
       }
     },
 
-    updateProfile: async (name, birthDate, age, gender, address, phone) => {
+    updateProfile: async (
+      name,
+      birthDate,
+      age,
+      gender,
+      address,
+      phone,
+      bio
+    ) => {
       try {
         set({ loading: true, error: null });
 
@@ -199,6 +208,7 @@ const authUser = create((set) => {
           gender,
           address,
           phone,
+          bio,
         });
         set({ user: res.data.user, loading: false, message: res.data.message });
       } catch (error) {

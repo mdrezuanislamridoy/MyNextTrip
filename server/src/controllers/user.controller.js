@@ -56,6 +56,7 @@ const createUser = async (req, res, next) => {
   try {
     const { name, email, password, verificationCode, role } = req.body;
 
+    console.log(req.body);
     if (!name || !password || !role || !email || !verificationCode)
       return next(createError(400, "All fields are required"));
 

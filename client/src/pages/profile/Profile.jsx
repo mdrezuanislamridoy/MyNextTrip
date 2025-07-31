@@ -1,35 +1,26 @@
 import React from "react";
-import useAuthStore from "../../state/UserState";
-import Agent from "./agent/Agent";
+import UserState from "../../state/UserState";
+
 import Traveler from "./traveler/Traveler";
-import { useNavigate } from "react-router-dom";
 import Admin from "./admin/Admin";
+import Agent from "./agent/Agent";
 
 export default function Profile() {
-  const { user, logout } = useAuthStore();
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-      navigate("/");
-    } catch (error) {
-      console.log(error.response?.data?.message);
-    }
-  };
+  const { user } = UserState();
 
   if (!user) {
-    return <div>Loading...</div>; // or redirect to login
+    return <div>Loading...</div>;
   }
 
   switch (user.role) {
     case "admin":
       return <Admin user={user} />;
+    case "agency":
+      return <Agent user={user} />;
     case "traveler":
       return <Traveler user={user} />;
-    case "agecy":
-      return <Agent user={user} />;
+
     default:
-      return <Traveler />;
+      return <Traveler user={user} />;
   }
 }

@@ -48,7 +48,6 @@ export default function Traveler({ user }) {
       const res = await updateProfilePicture();
       const url = res?.data?.user?.profilePic || URL.createObjectURL(file);
       setProfilePic(url);
-      setEditData({ ...editData, profilePic: url });
     }
   };
   const handleCoverPhotoChange = async (e) => {
@@ -58,7 +57,6 @@ export default function Traveler({ user }) {
       const res = await updateCoverPicture();
       const url = res?.data?.user?.coverPic || URL.createObjectURL(file);
       setCoverPhoto(url);
-      setEditData({ ...editData, coverPic: url });
     }
   };
 

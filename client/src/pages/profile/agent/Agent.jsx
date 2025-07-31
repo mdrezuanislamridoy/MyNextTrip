@@ -24,7 +24,7 @@ export default function Agent() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="block md:flex min-h-screen bg-gray-100">
       <Sidebar setSection={setSection} />
       <div className="flex-1 p-6">{renderSection()}</div>
     </div>

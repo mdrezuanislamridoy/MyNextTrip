@@ -29,6 +29,28 @@ const createAdmin = async (req, res, next) => {
   }
 };
 
+const getPendingAgencies = async (req, res, next) => {
+  try {
+    const userId = req.userId;
+    const admin = await User.findById(userId);
+    if (admin.role !== "admin") {
+      return next(createError(400, "You're not allowed to do this"));
+    }
+
+    const agencies = await User.find({
+      $and: [{ isAgent: "pending" }, { role: "agency" }],
+    });
+
+    if (!agencies) {
+      return next(createError(404, "No agency request here"));
+    }
+
+    res.status(200).json({ message: "Agency Fetched Successfully", agencies });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const approveAgency = async (req, res, next) => {
   try {
     const userId = req.userId;
@@ -81,4 +103,9 @@ const rejectAgency = async (req, res, next) => {
   }
 };
 
-module.exports = { createAdmin, approveAgency, rejectAgency };
+module.exports = {
+  createAdmin,
+  approveAgency,
+  rejectAgency,
+  getPendingAgencies,
+};

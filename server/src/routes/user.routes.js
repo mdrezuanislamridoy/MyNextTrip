@@ -2,6 +2,7 @@ const {
   createAdmin,
   approveAgency,
   rejectAgency,
+  getPendingAgencies,
 } = require("../controllers/admin.controller");
 const {
   sendCode,
@@ -44,6 +45,7 @@ router.post("/forgetPassword", forgetPassword);
 router.post("/logout", userCheck, logout);
 
 router.post("/admin/rr/rsc-create-bro-admin", createAdmin);
+router.get("/getPendingAgencies", userCheck, getPendingAgencies);
 router.post("/approveAgency/:agencyId", userCheck, approveAgency);
 router.post("/rejectAgency/:agencyId", userCheck, rejectAgency);
 
