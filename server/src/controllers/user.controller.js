@@ -160,7 +160,10 @@ const updateProfile = async (req, res, next) => {
       description,
       teamSize,
       specialization,
+      foundedDate,
     } = req.body;
+
+    console.log(req.body);
 
     if (!name) return next(createError(400, "Name is required"));
 
@@ -182,6 +185,7 @@ const updateProfile = async (req, res, next) => {
         description,
         teamSize,
         specialization,
+        foundedDate,
       });
     } else {
       Object.assign(updateData, {

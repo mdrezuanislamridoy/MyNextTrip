@@ -62,6 +62,7 @@ const UserSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    foundedDate: String,
     teamSize: {
       type: Number,
     },
