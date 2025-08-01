@@ -148,23 +148,52 @@ const profile = async (req, res, next) => {
 const updateProfile = async (req, res, next) => {
   try {
     const userId = req.userId;
-    const { name, bio, birthDate, age, gender, address, phone } = req.body;
+    const {
+      name,
+      bio,
+      birthDate,
+      age,
+      gender,
+      address,
+      phone,
+      website,
+      description,
+      teamSize,
+      specialization,
+    } = req.body;
 
     if (!name) return next(createError(400, "Name is required"));
 
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      {
-        name,
+    const user = await User.findById(userId);
+    if (!user) return next(createError(404, "User not found"));
+
+    const isAgency = user.role === "agency";
+
+    const updateData = {
+      name,
+      birthDate,
+      address,
+      phone,
+    };
+
+    if (isAgency) {
+      Object.assign(updateData, {
+        website,
+        description,
+        teamSize,
+        specialization,
+      });
+    } else {
+      Object.assign(updateData, {
         bio,
-        birthDate,
         age,
         gender,
-        phone,
-        address,
-      },
-      { new: true }
-    );
+      });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(userId, updateData, {
+      new: true,
+    });
 
     if (!updatedUser) return next(createError(400, "User update failed"));
 
@@ -199,6 +228,7 @@ const updateProfilePicture = async (req, res, next) => {
     next(error);
   }
 };
+
 const updateCoverPicture = async (req, res, next) => {
   try {
     const userId = req.userId;

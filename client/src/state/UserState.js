@@ -189,27 +189,11 @@ const authUser = create((set) => {
       }
     },
 
-    updateProfile: async (
-      name,
-      birthDate,
-      age,
-      gender,
-      address,
-      phone,
-      bio
-    ) => {
+    updateProfile: async (formData) => {
       try {
         set({ loading: true, error: null });
 
-        const res = await axiosInstance.put("/auth/updateProfile", {
-          name,
-          birthDate,
-          age,
-          gender,
-          address,
-          phone,
-          bio,
-        });
+        const res = await axiosInstance.put("/auth/updateProfile", formData);
         set({ user: res.data.user, loading: false, message: res.data.message });
       } catch (error) {
         set({

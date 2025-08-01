@@ -52,15 +52,7 @@ export default function AdminProfile() {
 
   const handleEditSubmit = async (e) => {
     e.preventDefault();
-    await updateProfile(
-      editData.name,
-      editData.birthDate,
-      editData.age,
-      editData.gender,
-      editData.address,
-      editData.phone,
-      editData.bio
-    );
+    await updateProfile(editData);
     setIsEditing(false);
   };
 

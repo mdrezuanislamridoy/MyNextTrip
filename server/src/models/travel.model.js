@@ -23,7 +23,7 @@ const travelSchema = new mongoose.Schema({
     trim: true,
     minlength: 20,
   },
-  travelPrice: {
+  price: {
     type: Number,
     required: [true, "Travel price is required"],
     min: 0,

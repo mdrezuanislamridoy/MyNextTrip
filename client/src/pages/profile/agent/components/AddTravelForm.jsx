@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TripState from "../../../../state/TripState";
 
-export default function AddTravelForm({ setIsAdding }) {
+export default function AddTravelForm({ setIsAdding, getAgencyTravels }) {
   const [categories, setCategories] = useState([]);
   const [categoryInput, setCategoryInput] = useState("");
 
@@ -41,14 +41,17 @@ export default function AddTravelForm({ setIsAdding }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormData({
+    const finalData = {
       ...formData,
       categories,
-    });
+    };
 
-    await addTravel(formData);
+    const res = await addTravel(finalData);
 
-    setIsAdding(false);
+    if (res.status === 200 || res.status === 201) {
+      await getAgencyTravels();
+      setIsAdding(false);
+    }
   };
 
   return (

@@ -11,8 +11,6 @@ const addTravel = async (req, res, next) => {
       req.body;
     const agencyId = req.userId;
 
-    console.log(req.body);
-
     if (
       !title ||
       !description ||
@@ -28,8 +26,6 @@ const addTravel = async (req, res, next) => {
     if (!agency || agency.role !== "agency") {
       return next(createError(403, "You're not authorized to add travel"));
     }
-
-    console.log(agency);
 
     if (!agency.address || !agency.phone) {
       return next(

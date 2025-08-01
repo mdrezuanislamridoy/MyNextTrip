@@ -31,15 +31,45 @@ const UserSchema = new mongoose.Schema(
     profilePic: {
       type: String,
     },
-    coverPic: String,
-    bio: String,
-    address: String,
-    age: Number,
-    birthDate: { type: Date },
-    gender: { type: String },
-    phone: Number,
+    coverPic: {
+      type: String,
+    },
+
+    // Shared
+    bio: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+    age: {
+      type: Number,
+    },
+    birthDate: {
+      type: Date,
+    },
+    gender: {
+      type: String,
+    },
+    phone: {
+      type: Number,
+    },
+
+    // Agency-specific
+    website: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+    teamSize: {
+      type: Number,
+    },
+    specialization: {
+      type: String,
+    },
   },
-  { timeStamps: true }
+  { timestamps: true }
 );
 
 const User = mongoose.model("User", UserSchema);

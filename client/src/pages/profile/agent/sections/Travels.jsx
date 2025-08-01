@@ -11,11 +11,8 @@ export default function Travels() {
   const { getAgencyTravels, agencyTravels } = TripState();
 
   useEffect(() => {
-    const fetchTravels = async () => {
-      await getAgencyTravels();
-    };
-    fetchTravels();
-  }, [getAgencyTravels]);
+    getAgencyTravels();
+  }, []);
 
   return (
     <div className="bg-gray-50 h-full p-2 rounded-xl">
@@ -37,14 +34,17 @@ export default function Travels() {
       ) : (
         <div>
           {agencyTravels.map((travel) => (
-            <Travel travel={travel} />
+            <Travel travel={travel} key={travel._id} />
           ))}
         </div>
       )}
 
       {isAdding && (
         <div className="absolute top-10 md:top-20 left-0 w-full h-full bg-gray-300/50">
-          <AddTravelForm setIsAdding={setIsAdding} />
+          <AddTravelForm
+            setIsAdding={setIsAdding}
+            getAgencyTravels={getAgencyTravels}
+          />
         </div>
       )}
     </div>

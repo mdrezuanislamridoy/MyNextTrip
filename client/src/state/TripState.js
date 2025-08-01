@@ -4,7 +4,7 @@ import axiosInstance from "../utils/axiosInstance";
 const useTravelStore = create((set) => ({
   travels: [],
   agencyTravels: [],
-  error: null,
+  error: "",
 
   getAllTravels: async () => {
     try {
@@ -53,10 +53,15 @@ const useTravelStore = create((set) => ({
     try {
       const { data } = await axiosInstance.get("/travel/getMyTravels");
 
-      set({ agencyTravels: Array.isArray(data) ? data : [] });
+      console.log(data.travels);
+
+      set({ agencyTravels: data ? data.travels : [] });
       set({ error: "" });
     } catch (error) {
-      set({ agencyTravels: [], error });
+      set({
+        agencyTravels: [],
+        error: error?.response?.data?.message || error.message,
+      });
     }
   },
 
@@ -68,9 +73,10 @@ const useTravelStore = create((set) => ({
         travels: [res.data, ...state.travels],
       }));
       set({ error: "" });
+      return res;
     } catch (err) {
       console.error("Failed to add travel:", err);
-      set({ error: err });
+      set({ error: err?.response?.data?.message || err.message });
     }
   },
 

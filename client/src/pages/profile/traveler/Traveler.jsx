@@ -62,14 +62,7 @@ export default function Traveler({ user }) {
 
   const handleEditSave = async (e) => {
     e.preventDefault();
-    await updateProfile(
-      editData.name,
-      editData.birthDate,
-      editData.age,
-      editData.gender,
-      editData.address,
-      editData.phone
-    );
+    await updateProfile(editData);
     setShowEdit(false);
   };
 

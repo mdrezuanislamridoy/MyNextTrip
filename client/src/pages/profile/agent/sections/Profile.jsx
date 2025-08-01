@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCamera,
@@ -23,12 +23,11 @@ export default function AgencyProfile() {
   const [showEdit, setShowEdit] = useState(false);
   const [editData, setEditData] = useState({
     name: user.name || "",
-    email: user.email || "",
     phone: user.phone || "",
     website: user.website || "",
     address: user.address || "",
     description: user.description || "",
-    foundedDate: user.foundedDate || "",
+    foundedDate: user.birthDate || "",
     teamSize: user.teamSize || "",
     specialization: user.specialization || "",
   });
@@ -70,29 +69,18 @@ export default function AgencyProfile() {
 
   const handleEditSave = async (e) => {
     e.preventDefault();
-    await updateProfile(
-      editData.name,
-      editData.email,
-      editData.phone,
-      editData.website,
-      editData.address,
-      editData.description,
-      editData.foundedDate,
-      editData.teamSize,
-      editData.specialization
-    );
+    await updateProfile(editData);
     setShowEdit(false);
   };
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        {/* Cover Photo Section */}
         <div
           className="w-full h-48 sm:h-64 md:h-80 relative bg-cover bg-center shadow-xl rounded-xl overflow-hidden"
           style={{ backgroundImage: `url(${coverPhoto})` }}
         >
-          <label className="absolute top-4 right-4 bg-white/90 hover:bg-white transition rounded-lg p-3 shadow-lg cursor-pointer border border-gray-200 flex items-center gap-2">
+          <label className="absolute top-4 right-4 z-30 bg-white/90 hover:bg-white transition rounded-lg p-3 shadow-lg cursor-pointer border border-gray-200 flex items-center gap-2">
             <FontAwesomeIcon icon={faCamera} className="text-gray-700" />
             <span className="text-sm font-medium hidden sm:inline">
               Change Cover
@@ -107,7 +95,6 @@ export default function AgencyProfile() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
         </div>
 
-        {/* Profile Header Section */}
         <div className="bg-white -mt-20 relative z-10 rounded-xl shadow-lg px-6 py-8 sm:px-10 sm:py-12 flex flex-col md:flex-row items-start md:items-center border border-gray-100">
           <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden shadow-xl border-4 border-white bg-gray-100 -mt-24">
             <img
@@ -157,7 +144,6 @@ export default function AgencyProfile() {
               {editData.description || "No description added yet."}
             </p>
 
-            {/* Agency Stats */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
               <div className="bg-blue-50 p-3 rounded-lg">
                 <div className="flex items-center gap-2 text-blue-700">
@@ -395,21 +381,6 @@ export default function AgencyProfile() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Email*
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="contact@agency.com"
-                    value={editData.email}
-                    onChange={handleEditChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
                     Phone
                   </label>
                   <input
@@ -443,7 +414,7 @@ export default function AgencyProfile() {
                   <input
                     type="date"
                     name="foundedDate"
-                    value={editData.foundedDate}
+                    value={editData.birthDate}
                     onChange={handleEditChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
