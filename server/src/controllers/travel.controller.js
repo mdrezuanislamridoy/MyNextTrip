@@ -21,18 +21,21 @@ const addTravel = async (req, res, next) => {
     ) {
       return next(createError(400, "All fields are required"));
     }
+    console.log(req.body);
 
     const agency = await User.findById(agencyId);
     if (!agency || agency.role !== "agency") {
       return next(createError(403, "You're not authorized to add travel"));
     }
 
-    if (!agency.address || !agency.phone) {
+    if (!agency.address && !agency.phone) {
       return next(
         createError(404),
-        "Address or Phone Number not added to Your Profile"
+        "Address and Phone Number not added to Your Profile"
       );
     }
+
+    console.log(agency.address, agency.phone);
 
     const travel = new Travel({
       agencyId,
@@ -43,7 +46,7 @@ const addTravel = async (req, res, next) => {
       duration,
       categories,
       email: agency.email,
-      phone: agency.phone,
+      number: agency.phone,
       contactAddress: agency.address,
     });
 
@@ -99,6 +102,7 @@ const getTravels = async (req, res, next) => {
 const getTravel = async (req, res, next) => {
   try {
     const travel = await Travel.findById(req.params.id);
+
     if (!travel) return next(createError(404, "Travel not found"));
 
     res.status(200).json({ travel });

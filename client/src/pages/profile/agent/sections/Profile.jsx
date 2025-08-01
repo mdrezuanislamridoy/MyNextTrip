@@ -27,7 +27,7 @@ export default function AgencyProfile() {
     website: user.website || "",
     address: user.address || "",
     description: user.description || "",
-    foundedDate: user.birthDate || "",
+    foundedDate: user.foundedDate || "",
     teamSize: user.teamSize || "",
     specialization: user.specialization || "",
   });

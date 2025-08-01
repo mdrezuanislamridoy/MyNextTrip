@@ -8,6 +8,8 @@ import Navbar from "./components/layout/Navbar";
 import Home from "./pages/home/Home";
 import Profile from "./pages/profile/Profile";
 import ForgetPass from "./pages/auth/ForgetPass";
+import Travels from "./pages/travels/Travels";
+import SingleTravel from "./components/travels/SingleTravel";
 
 export default function App() {
   const { user, profile, logout } = useAuthStore();
@@ -42,6 +44,8 @@ export default function App() {
             />
             <Route path="/forgetPass" element={<ForgetPass />} />
             <Route path="/" element={<Home />} />
+            <Route path={`/travel`} element={<Travels />}></Route>
+            <Route path="/travel/:id" element={<SingleTravel />} />
             <Route
               path="/profile"
               element={user ? <Profile /> : <Navigate to={"/login"} />}

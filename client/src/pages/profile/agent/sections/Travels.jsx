@@ -2,7 +2,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import TripState from "../../../../state/TripState";
-import Travel from "../components/Travel";
+import Travel from "../../../../components/travels/Travel";
 import TravelNotFound from "../components/TravelNotFound";
 import AddTravelForm from "../components/AddTravelForm";
 
@@ -32,9 +32,9 @@ export default function Travels() {
       {!agencyTravels || agencyTravels.length === 0 ? (
         <TravelNotFound />
       ) : (
-        <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
           {agencyTravels.map((travel) => (
-            <Travel travel={travel} key={travel._id} />
+            <Travel key={travel._id} travel={travel} />
           ))}
         </div>
       )}

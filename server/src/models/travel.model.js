@@ -38,7 +38,7 @@ const travelSchema = new mongoose.Schema({
     required: [true, "Travel duration is required"],
     min: 1,
   },
-  category: [String],
+  categories: [String],
 
   // Contact Info
   email: String,

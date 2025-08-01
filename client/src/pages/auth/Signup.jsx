@@ -173,7 +173,7 @@ export default function Signup() {
         </p>
         <p className="text-center">
           Don't have an account{" "}
-          <Link className="text-cyan-400 font-medium" to={"/"}>
+          <Link className="text-cyan-400 font-medium" to={"/login"}>
             Login
           </Link>
         </p>

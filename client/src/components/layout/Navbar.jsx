@@ -12,7 +12,7 @@ export default function Navbar({ user, logout }) {
   const navLinks = [
     { id: 1, name: "Home", path: "/" },
     { id: 2, name: "About", path: "/about" },
-    { id: 3, name: "Projects", path: "/projects" },
+    { id: 3, name: "Travels", path: "/travel" },
     { id: 4, name: "Contact", path: "/contact" },
   ];
 
@@ -41,6 +41,7 @@ export default function Navbar({ user, logout }) {
             <div className="hidden sm:flex sm:items-center gap-4">
               {navLinks.map((link) => (
                 <Link
+                  key={link}
                   to={link.path}
                   className={`font-medium ${
                     link.path === location.pathname

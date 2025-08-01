@@ -3,17 +3,30 @@ import axiosInstance from "../utils/axiosInstance";
 
 const useTravelStore = create((set) => ({
   travels: [],
+  travel: null,
   agencyTravels: [],
   error: "",
 
   getAllTravels: async () => {
     try {
       const res = await axiosInstance.get("/travel/getTravels");
-      set({ travels: res.data });
+      set({ travels: res.data.travels });
       set({ error: "" });
+      return res.data.travels;
     } catch (err) {
       console.error("Failed to fetch all travels:", err);
       set({ error: err });
+    }
+  },
+  getSingleTravel: async (id) => {
+    try {
+      const res = await axiosInstance.get(`/travel/getTravel/${id}`);
+      set({ travel: res.data.travel });
+      set({ error: "" });
+      return res;
+    } catch (error) {
+      console.error("Failed to fetch all travels:", error);
+      set({ error: error.response?.data?.message || error.message });
     }
   },
 
