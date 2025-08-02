@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const backendURL = "https://my-next-trip-eight.vercel.app/api";
+const backendURL = "http://localhost:5050/api";
 
 const axiosInstance = axios.create({
   baseURL: backendURL,
