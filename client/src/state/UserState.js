@@ -11,6 +11,7 @@ const authUser = create((set) => {
     profilePic: null,
     coverPic: null,
     agencies: [],
+    blockedProfiles: [],
 
     sendCode: async (email) => {
       set({ loading: true, error: null });
@@ -277,6 +278,47 @@ const authUser = create((set) => {
         set({ message: res.data.message });
       } catch (error) {
         set({
+          error: error.response?.data?.message || error.message,
+          loading: false,
+        });
+      }
+    },
+
+    blockProfile: async (id) => {
+      try {
+        const res = await axiosInstance.delete(`/blockProfile/${id}`);
+        set({ message: res.data.message });
+      } catch (error) {
+        set({
+          error: error.response?.data?.message || error.message,
+          loading: false,
+        });
+      }
+    },
+
+    unBlockProfile: async (id) => {
+      try {
+        const res = await axiosInstance.delete(`/unBlockProfile/${id}`);
+        set({ message: res.data.message });
+      } catch (error) {
+        set({
+          error: error.response?.data?.message || error.message,
+          loading: false,
+        });
+      }
+    },
+
+    getBlockedProfiles: async () => {
+      try {
+        const res = await axiosInstance.delete(`/getBlockedProfiles`);
+        set({
+          message: res.data.message,
+          blockedProfiles: res.data.blockedProfiles || [],
+        });
+        return res;
+      } catch (error) {
+        set({
+          blockedProfiles: [],
           error: error.response?.data?.message || error.message,
           loading: false,
         });
