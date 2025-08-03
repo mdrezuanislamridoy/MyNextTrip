@@ -386,6 +386,88 @@ const deleteProfile = async (req, res, next) => {
   } catch (error) {}
 };
 
+const blockProfile = async (req, res, next) => {
+  try {
+    const userId = req.userId;
+    const id = req.params.id;
+
+    const user = await User.findById(userId);
+
+    if (user.role !== "admin") {
+      return next(createError(401, "You're not allowed to do that"));
+    }
+
+    const blockedUser = await User.findByIdAndUpdate(
+      id,
+      { isBlocked: true },
+      { new: true }
+    );
+
+    if (!blockedUser) {
+      return next(createError(400, "Profile Blocking Failed"));
+    }
+
+    res
+      .status(200)
+      .json({ message: "One Profile Blocked Successfully", blockedUser });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const unBlockProfile = async (req, res, next) => {
+  try {
+    const userId = req.userId;
+    const id = req.params.id;
+
+    const user = await User.findById(userId);
+
+    if (user.role !== "admin") {
+      return next(createError(401, "You're not allowed to do that"));
+    }
+
+    const unBlockedUser = await User.findByIdAndUpdate(
+      id,
+      { isBlocked: false },
+      { new: true }
+    );
+
+    if (!unBlockedUser) {
+      return next(createError(400, "Profile Unblocking Failed"));
+    }
+
+    res
+      .status(200)
+      .json({ message: "One Profile Blocked Successfully", unBlockedUser });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getBlockedProfile = async (req, res, next) => {
+  try {
+    const userId = req.userId;
+
+    const user = await User.findById(userId);
+
+    if (user.role !== "admin") {
+      return next(createError(401, "You're not allowed to do that"));
+    }
+
+    const blockedProfiles = await User.find({ isBlocked: true });
+
+    if (!blockedProfiles) {
+      return next(createError(404, "There's no Blocked Profiles"));
+    }
+
+    res
+      .status(201)
+      .json({ message: "All Blocked Profile Fetched", blockedProfiles });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const logout = async (req, res, next) => {
   try {
     res.clearCookie("token", {
@@ -413,4 +495,7 @@ module.exports = {
   logout,
   getAllAgencies,
   deleteProfile,
+  blockProfile,
+  unBlockProfile,
+  getBlockedProfile,
 };

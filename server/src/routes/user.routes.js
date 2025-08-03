@@ -18,6 +18,9 @@ const {
   updateCoverPicture,
   getAllAgencies,
   deleteProfile,
+  blockProfile,
+  unBlockProfile,
+  getBlockedProfile,
 } = require("../controllers/user.controller");
 
 const userCheck = require("../middleware/User");
@@ -28,7 +31,6 @@ router.post("/sendCode", sendCode);
 router.post("/register", createUser);
 router.post("/login", login);
 router.get("/profile", userCheck, profile);
-router.get("/getAllAgencies", userCheck, getAllAgencies);
 router.put("/updateProfile", userCheck, updateProfile);
 router.put("/updatePassword", userCheck, updatePassword);
 router.put(
@@ -46,9 +48,18 @@ router.put(
 router.post("/sendForgetPassCode", forgetPasswordCode);
 router.post("/forgetPassword", forgetPassword);
 router.post("/logout", userCheck, logout);
-router.delete("/deleteProfile/:id", userCheck, deleteProfile);
+
+// Admin Area
 
 router.post("/admin/rr/rsc-create-bro-admin", createAdmin);
+
+router.get("/getAllAgencies", userCheck, getAllAgencies);
+
+router.delete("/deleteProfile/:id", userCheck, deleteProfile);
+router.put("/blockProfile/:id", userCheck, blockProfile);
+router.put("/unBlockProfile/:id", userCheck, unBlockProfile);
+router.get("/getBlockedProfiles", userCheck, getBlockedProfile);
+
 router.get("/getPendingAgencies", userCheck, getPendingAgencies);
 router.post("/approveAgency/:agencyId", userCheck, approveAgency);
 router.post("/rejectAgency/:agencyId", userCheck, rejectAgency);
