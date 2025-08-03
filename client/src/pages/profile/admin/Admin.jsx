@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import AdminProfile from "./sections/AdminProfile";
 import AgencyRequests from "./sections/AgencyRequests";
 import AdminState from "../../../state/AdminState";
+import AllAgencies from "./sections/AllAgencies";
 
 export default function Admin() {
-  const [section, setSection] = useState("profile");
   const { selectedPortion, setSelectedPortion } = AdminState();
 
   const renderSection = () => {
-    switch (section) {
+    switch (selectedPortion) {
       case "profile":
         return <AdminProfile />;
       case "requests":
         return <AgencyRequests />;
+      case "allagencies":
+        return <AllAgencies />;
       default:
         return <AdminProfile />;
     }
@@ -25,7 +27,6 @@ export default function Admin() {
         <div className="flex md:block">
           <button
             onClick={() => {
-              setSection("profile");
               setSelectedPortion("profile");
             }}
             className={`block w-full  py-1 cursor-pointer ${
@@ -36,7 +37,6 @@ export default function Admin() {
           </button>
           <button
             onClick={() => {
-              setSection("requests");
               setSelectedPortion("requests");
             }}
             className={`block w-full  py-1 cursor-pointer ${
@@ -44,6 +44,17 @@ export default function Admin() {
             }`}
           >
             Agency Requests
+          </button>
+
+          <button
+            onClick={() => {
+              setSelectedPortion("allagencies");
+            }}
+            className={`block w-full  py-1 cursor-pointer ${
+              selectedPortion === "allagencies" ? "bg-gray-300" : "bg-gray-100"
+            }`}
+          >
+            All Agencies
           </button>
         </div>
       </aside>
