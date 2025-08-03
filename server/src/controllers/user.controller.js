@@ -156,7 +156,9 @@ const getAllAgencies = async (req, res, next) => {
     }
 
     const agencies = await User.find({
-      $and: [{ role: "agency" }, { isAgent: "yes" }],
+      role: "agency",
+      isAgent: "yes",
+      isBlocked: { $ne: true },
     });
 
     if (agencies?.length === 0) {
@@ -393,6 +395,8 @@ const blockProfile = async (req, res, next) => {
 
     const user = await User.findById(userId);
 
+    console.log(user);
+
     if (user.role !== "admin") {
       return next(createError(401, "You're not allowed to do that"));
     }
@@ -402,6 +406,8 @@ const blockProfile = async (req, res, next) => {
       { isBlocked: true },
       { new: true }
     );
+
+    console.log(blockedUser);
 
     if (!blockedUser) {
       return next(createError(400, "Profile Blocking Failed"));

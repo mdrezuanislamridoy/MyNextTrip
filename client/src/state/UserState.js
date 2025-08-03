@@ -274,7 +274,7 @@ const authUser = create((set) => {
 
     deleteProfile: async (id) => {
       try {
-        const res = await axiosInstance.delete(`/deleteProfile/${id}`);
+        const res = await axiosInstance.delete(`/auth/deleteProfile/${id}`);
         set({ message: res.data.message });
       } catch (error) {
         set({
@@ -286,7 +286,7 @@ const authUser = create((set) => {
 
     blockProfile: async (id) => {
       try {
-        const res = await axiosInstance.delete(`/blockProfile/${id}`);
+        const res = await axiosInstance.put(`/auth/blockProfile/${id}`);
         set({ message: res.data.message });
       } catch (error) {
         set({
@@ -298,7 +298,7 @@ const authUser = create((set) => {
 
     unBlockProfile: async (id) => {
       try {
-        const res = await axiosInstance.delete(`/unBlockProfile/${id}`);
+        const res = await axiosInstance.put(`/auth/unBlockProfile/${id}`);
         set({ message: res.data.message });
       } catch (error) {
         set({
@@ -310,7 +310,7 @@ const authUser = create((set) => {
 
     getBlockedProfiles: async () => {
       try {
-        const res = await axiosInstance.delete(`/getBlockedProfiles`);
+        const res = await axiosInstance.get(`/auth/getBlockedProfiles`);
         set({
           message: res.data.message,
           blockedProfiles: res.data.blockedProfiles || [],

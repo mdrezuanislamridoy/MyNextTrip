@@ -1,8 +1,8 @@
-import React, { useState } from "react";
 import AdminProfile from "./sections/AdminProfile";
 import AgencyRequests from "./sections/AgencyRequests";
 import AdminState from "../../../state/AdminState";
 import AllAgencies from "./sections/AllAgencies";
+import BlockedAgencies from "./sections/BlockedAgencies";
 
 export default function Admin() {
   const { selectedPortion, setSelectedPortion } = AdminState();
@@ -15,6 +15,8 @@ export default function Admin() {
         return <AgencyRequests />;
       case "allagencies":
         return <AllAgencies />;
+      case "blockedAgencies":
+        return <BlockedAgencies />;
       default:
         return <AdminProfile />;
     }
@@ -55,6 +57,18 @@ export default function Admin() {
             }`}
           >
             All Agencies
+          </button>
+          <button
+            onClick={() => {
+              setSelectedPortion("blockedAgencies");
+            }}
+            className={`block w-full  py-1 cursor-pointer ${
+              selectedPortion === "blockedAgencies"
+                ? "bg-gray-300"
+                : "bg-gray-100"
+            }`}
+          >
+            Blocked Agencies
           </button>
         </div>
       </aside>
