@@ -1,42 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import TravelerState from "../../../../state/TravelerState";
 import Booking from "../components/Booking";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSuitcaseRolling,
-  faArrowRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-export default function MyBookings() {
-  const { bookings, myBookings } = TravelerState();
-  const [loading, setLoading] = useState(false);
-
-  const fetchBookings = async () => {
-    await myBookings();
-  };
-
-  useEffect(() => {
-    const fetch = async () => {
-      setLoading(true);
-      await fetchBookings();
-      setLoading(false);
-    };
-    fetch();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <h2 className="text-xl font-semibold text-gray-600">
-          <FontAwesomeIcon icon={faSuitcaseRolling} className="mr-2" />
-          Loading your bookings...
-        </h2>
-      </div>
-    );
-  }
-
+export default function MyBookings({ bookings }) {
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       {bookings?.length === 0 ? (

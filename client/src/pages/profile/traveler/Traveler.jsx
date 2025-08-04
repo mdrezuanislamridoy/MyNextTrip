@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import TravelerState from "../../../state/TravelerState";
 import CanceledTravels from "./sections/CanceledTravels";
 import CompletedTravels from "./sections/CompletedTravels";
@@ -5,12 +6,24 @@ import MyBookings from "./sections/MyBookings";
 import ProfileDetails from "./sections/ProfileDetails";
 
 export default function Traveler({ user }) {
-  const { selectedSection, setSelectedSection } = TravelerState();
+  const { selectedSection, setSelectedSection, myBookings, bookings } =
+    TravelerState();
+
+  useEffect(() => {
+    console.log("fetching booking");
+
+    const fetchBooking = async () => {
+      const res = await myBookings();
+      console.log(res.data.myBookings);
+    };
+
+    fetchBooking();
+  }, []);
 
   const Sections = () => {
     switch (selectedSection) {
       case "bookings":
-        return <MyBookings />;
+        return <MyBookings bookings={bookings} />;
       case "completed":
         return <CompletedTravels />;
       case "canceled":
