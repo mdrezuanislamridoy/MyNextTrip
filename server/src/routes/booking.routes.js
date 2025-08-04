@@ -8,6 +8,6 @@ const express = require("express");
 const BookingRouter = express.Router();
 
 BookingRouter.post("/addBooking/:id", User, addBooking);
-BookingRouter.get("/getBookings", User, getBookings);
+BookingRouter.get("/myBookings", User, getBookings);
 
 module.exports = BookingRouter;

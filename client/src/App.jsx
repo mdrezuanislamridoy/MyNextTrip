@@ -44,8 +44,8 @@ export default function App() {
             />
             <Route path="/forgetPass" element={<ForgetPass />} />
             <Route path="/" element={<Home />} />
-            <Route path={`/travel`} element={<Travels />}></Route>
-            <Route path="/travel/:id" element={<SingleTravel />} />
+            <Route path={`/travels`} element={<Travels />}></Route>
+            <Route path="/travels/:id" element={<SingleTravel />} />
             <Route
               path="/profile"
               element={user ? <Profile /> : <Navigate to={"/login"} />}

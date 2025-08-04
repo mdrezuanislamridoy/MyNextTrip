@@ -12,7 +12,7 @@ export default function Navbar({ user, logout }) {
   const navLinks = [
     { id: 1, name: "Home", path: "/" },
     { id: 2, name: "About", path: "/about" },
-    { id: 3, name: "Travels", path: "/travel" },
+    { id: 3, name: "Travels", path: "/travels" },
     { id: 4, name: "Contact", path: "/contact" },
   ];
 
