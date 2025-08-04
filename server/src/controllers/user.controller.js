@@ -56,7 +56,6 @@ const createUser = async (req, res, next) => {
   try {
     const { name, email, password, verificationCode, role } = req.body;
 
-    console.log(req.body);
     if (!name || !password || !role || !email || !verificationCode)
       return next(createError(400, "All fields are required"));
 
@@ -188,8 +187,6 @@ const updateProfile = async (req, res, next) => {
       specialization,
       foundedDate,
     } = req.body;
-
-    console.log(req.body);
 
     if (!name) return next(createError(400, "Name is required"));
 
@@ -395,8 +392,6 @@ const blockProfile = async (req, res, next) => {
 
     const user = await User.findById(userId);
 
-    console.log(user);
-
     if (user.role !== "admin") {
       return next(createError(401, "You're not allowed to do that"));
     }
@@ -406,8 +401,6 @@ const blockProfile = async (req, res, next) => {
       { isBlocked: true },
       { new: true }
     );
-
-    console.log(blockedUser);
 
     if (!blockedUser) {
       return next(createError(400, "Profile Blocking Failed"));

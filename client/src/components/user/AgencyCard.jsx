@@ -84,7 +84,6 @@ export default function AgencyCard({
         </button>
       </div>
 
-      {/*Block Model */}
       {isBlocking && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
           <div className="bg-white rounded-lg shadow-xl p-8 max-w-sm w-full border border-green-200">
@@ -115,7 +114,6 @@ export default function AgencyCard({
         </div>
       )}
 
-      {/* Delete Modal */}
       {isDeleting && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
           <div className="bg-white rounded-lg shadow-xl p-8 max-w-sm w-full border border-green-200">

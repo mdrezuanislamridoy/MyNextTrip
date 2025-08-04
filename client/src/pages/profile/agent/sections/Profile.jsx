@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCamera,
@@ -12,7 +12,6 @@ import {
   faCalendarAlt,
   faBriefcase,
   faStar,
-  faCheckCircle,
   faSave,
 } from "@fortawesome/free-solid-svg-icons";
 import UserState from "../../../../state/UserState";
@@ -249,89 +248,7 @@ export default function AgencyProfile() {
             </div>
           </div>
         </div>
-
-        {/* Additional Agency Sections */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-          {/* About Section */}
-          <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <FontAwesomeIcon icon={faBriefcase} className="text-blue-600" />
-              <span>About Our Agency</span>
-            </h2>
-            <p className="text-gray-600">
-              We are a full-service creative agency specializing in digital
-              marketing, branding, and web development. Our team of experts
-              delivers innovative solutions tailored to your business needs.
-            </p>
-            <div className="mt-4">
-              <h3 className="font-semibold text-gray-800 mb-2">Our Services</h3>
-              <ul className="space-y-2">
-                <li className="flex items-center gap-2">
-                  <FontAwesomeIcon
-                    icon={faCheckCircle}
-                    className="text-green-500"
-                  />
-                  <span>Brand Strategy & Identity</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <FontAwesomeIcon
-                    icon={faCheckCircle}
-                    className="text-green-500"
-                  />
-                  <span>Web Design & Development</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <FontAwesomeIcon
-                    icon={faCheckCircle}
-                    className="text-green-500"
-                  />
-                  <span>Digital Marketing</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <FontAwesomeIcon
-                    icon={faCheckCircle}
-                    className="text-green-500"
-                  />
-                  <span>Content Creation</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Team Section */}
-          <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <FontAwesomeIcon icon={faUsers} className="text-blue-600" />
-              <span>Our Team</span>
-            </h2>
-            <div className="grid grid-cols-2 gap-4">
-              {[1, 2, 3, 4].map((member) => (
-                <div key={member} className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
-                    <img
-                      src={`https://randomuser.me/api/portraits/${
-                        member % 2 === 0 ? "women" : "men"
-                      }/${member + 20}.jpg`}
-                      alt={`Team member ${member}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-800">
-                      Team Member {member}
-                    </p>
-                    <p className="text-sm text-gray-500">Position {member}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <button className="mt-4 text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
-              View Full Team <span>→</span>
-            </button>
-          </div>
-        </div>
       </div>
-
       {/* Edit Profile Modal */}
       {showEdit && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
