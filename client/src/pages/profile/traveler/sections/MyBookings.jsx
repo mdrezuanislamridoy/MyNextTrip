@@ -3,10 +3,23 @@ import TravelerState from "../../../../state/TravelerState";
 import Booking from "../components/Booking";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faSuitcaseRolling,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-export default function MyBookings({ bookings }) {
+export default function MyBookings({ bookings, loading }) {
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <h2 className="text-xl font-semibold text-gray-600">
+          <FontAwesomeIcon icon={faSuitcaseRolling} className="mr-2" />
+          Loading your bookings...
+        </h2>
+      </div>
+    );
+  }
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       {bookings?.length === 0 ? (

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Booking({ booking }) {
   return (
@@ -6,6 +7,7 @@ export default function Booking({ booking }) {
       <h2>{booking.tourName}</h2>
       <h2>{booking.tourLocation}</h2>
       <h2>{booking.tourDate}</h2>
+      <i>{booking.status}</i>
     </div>
   );
 }

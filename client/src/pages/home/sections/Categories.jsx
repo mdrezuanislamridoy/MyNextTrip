@@ -32,7 +32,7 @@ export default function Categories() {
   ];
 
   return (
-    <div className="flex justify-center gap-8 py-8">
+    <div className="flex flex-col text-center md:flex-row md:justify-center gap-8 py-8 mx-2 md:mx-auto">
       {ctg.map((category, index) => (
         <Link
           key={index}

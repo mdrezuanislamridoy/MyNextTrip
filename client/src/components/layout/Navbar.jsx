@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { faSignOut, faUser } from "@fortawesome/free-solid-svg-icons";
+import logo from "../../assets/images/logo.png";
 
 export default function Navbar({ user, logout }) {
   const [isHidden, setIsHidden] = useState(true);
@@ -34,8 +35,10 @@ export default function Navbar({ user, logout }) {
       <div className="bg-slate-50 shadow">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-4">
-            <h2 className="text-2xl font-medium cursor-pointer">
-              <Link to={"/"}>MyNextTrip</Link>
+            <h2 className="text-2xl font-medium cursor-pointer ">
+              <Link to={"/"}>
+                <img src={logo} className="w-28" alt={"MyNextTrip"} />
+              </Link>
             </h2>
 
             <div className="hidden sm:flex sm:items-center gap-4">

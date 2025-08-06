@@ -32,7 +32,7 @@ export default function App() {
     <div className="min-h-screen bg-gray-300">
       <BrowserRouter>
         <>
-          <Navbar user={user} logout={logout} /> <br />
+          <Navbar user={user} logout={logout} />
           <Routes>
             <Route
               path="/login"
