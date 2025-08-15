@@ -26,12 +26,15 @@ const validation = require("../middleware/validation");
 
 const userCheck = require("../middleware/User");
 const upload = require("../utils/multer");
-const { createUserSchema } = require("../validation/user.validate");
+const {
+  createUserSchema,
+  loginUserSchema,
+} = require("../validation/user.validate");
 const router = require("express").Router();
 
 router.post("/sendCode", sendCode);
 router.post("/register", validation(createUserSchema), createUser);
-router.post("/login", login);
+router.post("/login", validation(loginUserSchema), login);
 router.get("/profile", userCheck, profile);
 router.put("/updateProfile", userCheck, updateProfile);
 router.put("/updatePassword", userCheck, updatePassword);

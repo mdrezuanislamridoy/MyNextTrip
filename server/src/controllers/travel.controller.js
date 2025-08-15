@@ -7,7 +7,7 @@ const createError = require("http-errors");
 // Add a new travel
 const addTravel = async (req, res, next) => {
   try {
-    const { title, description, price, location, duration, categories } =
+    const { title, description, price, location, duration, categories, type } =
       req.body;
     const agencyId = req.userId;
 
@@ -40,6 +40,7 @@ const addTravel = async (req, res, next) => {
     const travel = new Travel({
       agencyId,
       title,
+      type,
       description,
       price,
       location,
