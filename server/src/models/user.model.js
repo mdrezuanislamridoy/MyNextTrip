@@ -69,6 +69,7 @@ const UserSchema = new mongoose.Schema(
     specialization: {
       type: String,
     },
+    isBlocked: Boolean,
   },
   { timestamps: true }
 );

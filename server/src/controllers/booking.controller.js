@@ -5,10 +5,10 @@ const addBooking = async (req, res) => {
   try {
     const travelId = req.params.id;
     const userId = req.userId;
-    let { tourLocation, numberOfTraveler, tourDate } = req.body;
+    let { numberOfTraveler, tourDate } = req.body;
 
-    if (!tourLocation || !tourDate) {
-      return res.status(404).json({ message: "Something is missing" });
+    if (!tourDate) {
+      return res.status(404).json({ message: "Date is missing" });
     }
 
     if (!numberOfTraveler) {
@@ -35,10 +35,10 @@ const addBooking = async (req, res) => {
       travelId,
       travelerId: userId,
       tourName: travel.title,
-      tourLocation,
+      tourLocation: travel.location,
       tourDate,
       numberOfTraveler,
-      totalPrice: travel.travelPrice * numberOfTraveler,
+      totalPrice: travel.price * numberOfTraveler,
     });
 
     await newBooking.save();

@@ -32,7 +32,7 @@ export default function App() {
     <div className="min-h-screen bg-gray-300">
       <BrowserRouter>
         <>
-          <Navbar user={user} logout={logout} /> <br />
+          <Navbar user={user} logout={logout} />
           <Routes>
             <Route
               path="/login"
@@ -44,8 +44,8 @@ export default function App() {
             />
             <Route path="/forgetPass" element={<ForgetPass />} />
             <Route path="/" element={<Home />} />
-            <Route path={`/travel`} element={<Travels />}></Route>
-            <Route path="/travel/:id" element={<SingleTravel />} />
+            <Route path={`/travels`} element={<Travels />}></Route>
+            <Route path="/travels/:id" element={<SingleTravel />} />
             <Route
               path="/profile"
               element={user ? <Profile /> : <Navigate to={"/login"} />}

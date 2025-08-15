@@ -6,6 +6,10 @@ const travelSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  travelType: {
+    type: String,
+    default: "Trip",
+  },
   images: [
     {
       type: String,

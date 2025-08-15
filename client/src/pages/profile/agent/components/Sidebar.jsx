@@ -1,11 +1,7 @@
 import AdminState from "../../../../state/AdminState";
 
-export default function Sidebar({ setSection }) {
+export default function Sidebar() {
   const { setSelectedPortion, selectedPortion } = AdminState();
-
-  const handleSelectedPortion = async (portion) => {
-    setSelectedPortion(portion);
-  };
 
   return (
     <div className="w-full md:w-64 bg-white shadow-lg p-4 space-y-6">
@@ -13,8 +9,7 @@ export default function Sidebar({ setSection }) {
       <div className="flex flex-row md:flex-col flex-wrap">
         <button
           onClick={() => {
-            setSection("profile");
-            handleSelectedPortion("profile");
+            setSelectedPortion("profile");
           }}
           className={`${
             selectedPortion === "profile" ? "bg-gray-200" : ""
@@ -24,8 +19,7 @@ export default function Sidebar({ setSection }) {
         </button>
         <button
           onClick={() => {
-            setSection("travels");
-            handleSelectedPortion("travels");
+            setSelectedPortion("travels");
           }}
           className={`${
             selectedPortion === "travels" ? "bg-gray-200" : ""
@@ -35,8 +29,7 @@ export default function Sidebar({ setSection }) {
         </button>
         <button
           onClick={() => {
-            setSection("bookings");
-            handleSelectedPortion("bookings");
+            setSelectedPortion("bookings");
           }}
           className={`${
             selectedPortion === "bookings" ? "bg-gray-200" : ""
@@ -46,8 +39,7 @@ export default function Sidebar({ setSection }) {
         </button>
         <button
           onClick={() => {
-            setSection("finished");
-            handleSelectedPortion("finished");
+            setSelectedPortion("finished");
           }}
           className={`${
             selectedPortion === "finished" ? "bg-gray-200" : ""
