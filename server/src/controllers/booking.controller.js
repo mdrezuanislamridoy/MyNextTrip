@@ -5,7 +5,7 @@ const addBooking = async (req, res) => {
   try {
     const travelId = req.params.id;
     const userId = req.userId;
-    let { numberOfTraveler, tourDate } = req.body;
+    let { numberOfTraveler, tourDate, paymentMethod } = req.body;
 
     if (!tourDate) {
       return res.status(404).json({ message: "Date is missing" });
@@ -39,6 +39,7 @@ const addBooking = async (req, res) => {
       tourDate,
       numberOfTraveler,
       totalPrice: travel.price * numberOfTraveler,
+      paymentMethod,
     });
 
     await newBooking.save();
