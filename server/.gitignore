@@ -83,3 +83,4 @@ Thumbs.db
 *.ntvs*
 *.njsproj
 *.sln
+.vercel
