@@ -4,6 +4,7 @@ const Joi = require("joi");
 const createUserSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().email().required(),
+  verificationCode: Joi.number().required(),
   password: Joi.string().min(6).required(),
   role: Joi.string().valid("traveler", "agency", "admin").default("traveler"),
   isAgent: Joi.string().valid("no", "pending", "yes").default("no"),

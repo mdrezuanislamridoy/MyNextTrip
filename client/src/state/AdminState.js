@@ -9,7 +9,9 @@ const AdminState = create((set) => {
     selectedPortion: "profile",
 
     setSelectedPortion: (portion) => {
-      set({ selectedPortion: portion });
+      set((state) => ({
+        selectedPortion: portion || state.selectedPortion,
+      }));
     },
 
     getPendingAgencies: async () => {

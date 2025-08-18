@@ -107,6 +107,10 @@ const login = async (req, res, next) => {
     if (user.role === "agency" && user.isAgent !== "yes")
       return next(createError(403, "Agency login denied"));
 
+    if (user.isBlocked) {
+      return next(createError(401, "User is blocked"));
+    }
+
     const passMatch = await bcrypt.compare(password, user.password);
     if (!passMatch) return next(createError(401, "Password does not match"));
 
@@ -133,6 +137,13 @@ const profile = async (req, res, next) => {
     }
 
     const user = await User.findById(userId).select("-password");
+
+    if (user.isBlocked) {
+      return res
+        .redirect("/api/auth/logout")
+        .status(401)
+        .json({ message: "User Is Blocked" });
+    }
 
     if (!user) {
       throw new Error("User Not Found");
