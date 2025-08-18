@@ -13,8 +13,10 @@ const {
 } = require("../controllers/travel.controller");
 const User = require("../middleware/User");
 const upload = require("../utils/multer");
+const validation = require("../middleware/validation");
+const { addTravelSchema } = require("../validation/travel.validate");
 
-TravelRouter.post("/addTravel", User, addTravel);
+TravelRouter.post("/addTravel", User, validation(addTravelSchema), addTravel);
 TravelRouter.post(
   "/addImage/:id",
   upload.single("travelImage"),

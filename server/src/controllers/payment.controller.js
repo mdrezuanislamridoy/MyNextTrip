@@ -3,15 +3,37 @@ const Booking = require("../models/booking.model");
 const axios = require("axios");
 const qs = require("qs");
 
+const COD = async (req, res, next) => {
+  try {
+    const userId = req.userId;
+    const bookingId = req.params.id;
+
+    const booking = await Booking.findOne({
+      _id: bookingId,
+      travelerId: userId,
+    });
+
+    if (!booking) {
+      return res.status(404).json({ message: "Booking Not Found" });
+    }
+
+    booking.paymentMethod = "COD";
+    await booking.save();
+    res.status(200).json({ message: "COD Payment method added ", booking });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const payBill = async (req, res) => {
   try {
-    const user = req.user.id;
+    const user = req.userId;
     const bookingId = req.params.id;
 
     const booking = await Booking.findOne({
       _id: bookingId,
       travelerId: user,
-    }).populate("travelerId");
+    });
 
     if (!booking) {
       return res.status(404).json({ message: "Booking not found" });
@@ -44,7 +66,14 @@ const payBill = async (req, res) => {
       },
     });
 
-    res.json({ url: response.data.GatewayPageURL });
+    booking.paymentMethod = "SSLCommerz";
+    await booking.save();
+
+    res.json({
+      url: response.data.GatewayPageURL,
+      message: "SSLCommerz payment method selected. verify your payment",
+      booking,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -55,14 +84,19 @@ const payBill = async (req, res) => {
 
 const success = async (req, res) => {
   res.send("Payment Successful");
+  res.redirect(`${process.env.CORS_ORIGIN}/payment/success`);
 };
 const fail = (req, res) => {
   res.send("Payment Failed");
+  res.redirect(`${process.env.CORS_ORIGIN}/payment/failed`);
 };
 const cancel = (req, res) => {
   res.send("Payment Cancelled");
+  res.redirect(`${process.env.CORS_ORIGIN}/payment/canceled`);
 };
+
 module.exports = {
+  COD,
   payBill,
   success,
   fail,

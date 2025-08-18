@@ -99,7 +99,7 @@ export default function Travel() {
       </div>
 
       <div className="mt-8 flex flex-col sm:flex-row gap-4">
-        {isAgency ? (
+        {isAgency || user.role === "admin" ? (
           <>
             {agency ? (
               <div className="flex gap-4">
