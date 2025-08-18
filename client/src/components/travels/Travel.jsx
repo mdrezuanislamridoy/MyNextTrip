@@ -34,7 +34,7 @@ export default function TravelCard({ travel }) {
         </div>
 
         <Link
-          to={`/travel/${travel._id}`}
+          to={`/travels/${travel._id}`}
           className="mt-3 inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-full"
         >
           See More

@@ -2,7 +2,6 @@ const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
 const addTravelSchema = Joi.object({
-  agencyId: Joi.objectId().required(),
   travelType: Joi.string().default("Tavel"),
   title: Joi.string().required().min(5).max(100).trim(),
   description: Joi.string().required().min(20).trim(),
