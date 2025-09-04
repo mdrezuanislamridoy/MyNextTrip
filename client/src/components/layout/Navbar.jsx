@@ -28,6 +28,7 @@ export default function Navbar({ user, logout }) {
     if (res.success) {
       console.log("Logged Out Successfully");
     }
+    navigate("/");
   };
 
   return (
