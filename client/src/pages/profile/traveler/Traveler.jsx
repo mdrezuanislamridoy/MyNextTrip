@@ -23,9 +23,9 @@ export default function Traveler({ user }) {
       case "bookings":
         return <MyBookings bookings={myBookings} loading={loading} />;
       case "completed":
-        return <CompletedTravels />;
+        return <CompletedTravels bookings={myBookings} loading={loading} />;
       case "canceled":
-        return <CanceledTravels />;
+        return <CanceledTravels bookings={myBookings} loading={loading} />;
       default:
         return <MyBookings />;
     }

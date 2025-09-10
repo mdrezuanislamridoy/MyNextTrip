@@ -39,6 +39,8 @@ const BookingStore = create((set) => {
         const res = axiosInstance.put(`/booking/updateBooking/${id}`, {
           status,
         });
+        console.log(res.data.message);
+        return res;
       } catch (error) {
         console.log(error);
       }

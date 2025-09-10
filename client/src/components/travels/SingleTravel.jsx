@@ -13,6 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Travel() {
+  const [showBooking, setShowBooking] = useState(false);
   const { id } = useParams();
   const { getSingleTravel, travel, removeTravel } = TripState();
   const { user } = UserState();
@@ -49,6 +50,8 @@ export default function Travel() {
   const isAgency = user?._id === travel?.agencyId;
 
   const agency = travel?.agencyId === user?._id;
+
+  const handleBooking = async () => {};
 
   return (
     <div className="max-w-5xl mx-auto p-4 bg-white rounded-xl shadow mt-6">
@@ -121,9 +124,28 @@ export default function Travel() {
             )}
           </>
         ) : (
-          <button className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700">
+          <button
+            onClick={() => setShowBooking(true)}
+            className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700"
+          >
             Book This Travel
           </button>
+        )}
+      </div>
+
+      <div>
+        {showBooking ? (
+          <div className="bg-black/50 backdrop-blur-xl min-h-screen p-4 rounded-xl ">
+            <h2 className="text-2xl font-semibold">
+              Do you want to book this travel?
+            </h2>
+            <div>
+              <button onClick={handleBooking}>Yes</button>
+              <button onClick={() => setShowBooking(false)}>No</button>
+            </div>
+          </div>
+        ) : (
+          <></>
         )}
       </div>
     </div>
