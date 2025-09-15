@@ -132,9 +132,27 @@ const updateBooking = async (req, res) => {
   }
 };
 
+const getBooking = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const booking = await Booking.findById(id);
+
+    console.log(booking);
+
+    if (!booking) {
+      return res.status(400).json("No booking found");
+    }
+    res.status(200).json({ booking, message: "Booking fetched" });
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+};
+
 module.exports = {
   addBooking,
   getAgencyBookings,
   getBookings,
   updateBooking,
+  getBooking,
 };

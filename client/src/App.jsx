@@ -10,6 +10,7 @@ import Profile from "./pages/profile/Profile";
 import ForgetPass from "./pages/auth/ForgetPass";
 import Travels from "./pages/travels/Travels";
 import SingleTravel from "./components/travels/SingleTravel";
+import BookingDetails from "./pages/profile/traveler/sections/BookingDetails";
 
 export default function App() {
   const { user, profile, logout } = useAuthStore();
@@ -50,6 +51,7 @@ export default function App() {
               path="/profile"
               element={user ? <Profile /> : <Navigate to={"/login"} />}
             />
+            <Route path="/bookings/:id" element={<BookingDetails />} />
           </Routes>
         </>
       </BrowserRouter>

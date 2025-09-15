@@ -54,88 +54,94 @@ export default function Travel() {
   const handleBooking = async () => {};
 
   return (
-    <div className="max-w-5xl mx-auto p-4 bg-white rounded-xl shadow mt-6">
-      {travel.images?.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-          {travel.images.map((img, i) => (
-            <img
-              key={i}
-              src={img}
-              alt={`Image ${i}`}
-              className="w-full h-64 object-cover rounded-lg"
-            />
-          ))}
-        </div>
-      )}
-
-      <h1 className="text-3xl font-bold mb-2">{travel.title}</h1>
-      <p className="text-gray-700 mb-6">{travel.description}</p>
-
-      <div className="grid md:grid-cols-2 gap-6 text-gray-800">
-        <div>
-          <p>
-            <FontAwesomeIcon icon={faDollarSign} className="text-green-600" />{" "}
-            Price: ${travel.price}
-          </p>
-          <p>
-            <FontAwesomeIcon icon={faClock} className="text-blue-600" />{" "}
-            Duration: {travel.duration} days
-          </p>
-          <p>
-            <FontAwesomeIcon icon={faMapMarkerAlt} className="text-red-600" />{" "}
-            Location: {travel.location}
-          </p>
-        </div>
-        <div>
-          <p>
-            <FontAwesomeIcon icon={faTag} className="text-purple-600" />{" "}
-            Categories: {travel.categories?.join(", ")}
-          </p>
-          <p>
-            <FontAwesomeIcon icon={faEnvelope} /> Email: {travel.email || "N/A"}
-          </p>
-          <p>
-            <FontAwesomeIcon icon={faPhone} /> Phone: {travel.number || "N/A"}
-          </p>
-          <p>Address: {travel.contactAddress || "N/A"}</p>
-        </div>
-      </div>
-
-      <div className="mt-8 flex flex-col sm:flex-row gap-4">
-        {isAgency || user.role === "admin" ? (
-          <>
-            {agency ? (
-              <div className="flex gap-4">
-                <button
-                  onClick={handleEdit}
-                  className="cursor-pointer bg-blue-400 rounded-4xl text-white py-2 px-4 "
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={handleDelete}
-                  className="cursor-pointer bg-red-400 rounded-4xl text-white py-2 px-4 "
-                >
-                  Delete
-                </button>
-              </div>
-            ) : (
-              <div>Contract if you want to contribute with this agency</div>
-            )}
-          </>
-        ) : (
-          <button
-            onClick={() => setShowBooking(true)}
-            className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700"
-          >
-            Book This Travel
-          </button>
-        )}
-      </div>
-
+    <div className="max-w-5xl mx-auto p-4 bg-white rounded-xl shadow mt-6 relative">
       <div>
+        {travel.images?.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+            {travel.images.map((img, i) => (
+              <img
+                key={i}
+                src={img}
+                alt={`Image ${i}`}
+                className="w-full h-64 object-cover rounded-lg"
+              />
+            ))}
+          </div>
+        )}
+
+        <h1 className="text-3xl font-bold mb-2">{travel.title}</h1>
+        <p className="text-gray-700 mb-6">{travel.description}</p>
+
+        <div className="grid md:grid-cols-2 gap-6 text-gray-800">
+          <div>
+            <p>
+              <FontAwesomeIcon icon={faDollarSign} className="text-green-600" />{" "}
+              Price: ${travel.price}
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faClock} className="text-blue-600" />{" "}
+              Duration: {travel.duration} days
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faMapMarkerAlt} className="text-red-600" />{" "}
+              Location: {travel.location}
+            </p>
+          </div>
+          <div>
+            <p>
+              <FontAwesomeIcon icon={faTag} className="text-purple-600" />{" "}
+              Categories: {travel.categories?.join(", ")}
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faEnvelope} /> Email:{" "}
+              {travel.email || "N/A"}
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faPhone} /> Phone: {travel.number || "N/A"}
+            </p>
+            <p>Address: {travel.contactAddress || "N/A"}</p>
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-col sm:flex-row gap-4">
+          {!user ? null : user.role === "traveler" ? (
+            <button
+              onClick={() => setShowBooking(true)}
+              className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700"
+            >
+              Book This Travel
+            </button>
+          ) : user.role === "admin" ? (
+            <div>
+              <button
+                onClick={() => {}}
+                className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700"
+              >
+                Ask Agency to Book
+              </button>
+            </div>
+          ) : user.role === "agency" && user._id === travel.agencyId ? (
+            <div className="flex gap-4">
+              <button
+                onClick={handleEdit}
+                className="cursor-pointer bg-blue-400 rounded-4xl text-white py-2 px-4 "
+              >
+                Edit
+              </button>
+              <button
+                onClick={handleDelete}
+                className="cursor-pointer bg-red-400 rounded-4xl text-white py-2 px-4 "
+              >
+                Delete
+              </button>
+            </div>
+          ) : null}
+        </div>
+      </div>
+
+      <div className="absolute  md:w-1/2">
         {showBooking ? (
-          <div className="bg-black/50 backdrop-blur-xl min-h-screen p-4 rounded-xl ">
+          <div className="bg-slate-400/40 backdrop-blur-xl h-60 p-4 rounded-xl ">
             <h2 className="text-2xl font-semibold">
               Do you want to book this travel?
             </h2>

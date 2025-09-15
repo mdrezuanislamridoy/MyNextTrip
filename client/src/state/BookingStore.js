@@ -45,6 +45,14 @@ const BookingStore = create((set) => {
         console.log(error);
       }
     },
+    getBooking: async (id) => {
+      try {
+        const res = await axiosInstance.get(`/booking/getBooking/${id}`);
+        return res.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
   };
 });
 
