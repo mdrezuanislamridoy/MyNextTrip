@@ -82,13 +82,6 @@ const getBookings = async (req, res) => {
 
 const getAgencyBookings = async (req, res) => {
   try {
-    const userId = req.userId;
-    const user = await User.findById(userId);
-
-    if (user.role !== "agency") {
-      return res.status(401).json({ message: "You're not an agency" });
-    }
-
     const travels = await Travel.find({ agencyId: user._id }).select("_id");
     if (!travels.length) {
       return res
@@ -148,8 +141,6 @@ const getBooking = async (req, res) => {
 
     const booking = await Booking.findById(id);
 
-    console.log(booking);
-
     if (!booking) {
       return res.status(400).json("No booking found");
     }
@@ -170,7 +161,7 @@ const agencyFinishedTravel = async (req, res, next) => {
         $lookup: {
           from: "travels",
           localField: "travelId",
-          foreignField: "agencyId",
+          foreignField: "_id",
           as: "travel",
         },
       },
@@ -188,12 +179,15 @@ const agencyFinishedTravel = async (req, res, next) => {
           tourDate: 1,
           numberOfTraveler: 1,
           totalPrice: 1,
+          tourDate: 1,
           travel: 1,
         },
       },
     ]);
 
-    console.log(finishedTravels);
+    if (finishedTravels.length === 0) {
+      return res.status(404).json({ message: "No Travel Found" });
+    }
 
     res
       .status(200)

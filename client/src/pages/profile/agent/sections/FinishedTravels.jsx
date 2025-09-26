@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import BookingStore from "../../../../state/BookingStore";
+import CompletedTripCard from "../components/CompletedTripCard";
 
 export default function FinishedTravels() {
   const { agencyFinishedTravel } = BookingStore();
@@ -9,7 +10,8 @@ export default function FinishedTravels() {
   useEffect(() => {
     const fetchFinishedTravels = async () => {
       const res = await agencyFinishedTravel();
-      setCompletedTrips(res);
+      setCompletedTrips(res.finishedTravels);
+      console.log(res);
     };
     fetchFinishedTravels();
   }, []);
@@ -17,5 +19,10 @@ export default function FinishedTravels() {
   if (completedTrips.length === 0) {
     return <div>No Trip Found</div>;
   }
-  return completedTrips;
+  return (
+    completedTrips.length > 0 &&
+    completedTrips.map((trip) => (
+      <CompletedTripCard key={trip._id} trip={trip} />
+    ))
+  );
 }

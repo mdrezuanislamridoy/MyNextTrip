@@ -21,10 +21,9 @@ BookingRouter.post(
   addBooking
 );
 BookingRouter.get("/myBookings", User, getBookings);
-BookingRouter.get("/getAgencyBookings", User, getAgencyBookings);
+BookingRouter.get("/getAgencyBookings", Agency, getAgencyBookings);
 BookingRouter.put("/updateBooking/:id", User, updateBooking);
 BookingRouter.get("/getBooking/:id", User, getBooking);
 BookingRouter.get("/agencyFinishedTravel", Agency, agencyFinishedTravel);
-
 
 module.exports = BookingRouter;

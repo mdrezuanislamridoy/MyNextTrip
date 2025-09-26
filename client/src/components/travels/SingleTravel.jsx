@@ -27,8 +27,6 @@ export default function Travel() {
     const getTaravel = async () => {
       const res = await getSingleTravel(id);
 
-      console.log(res);
-
       if (res.status === 200 || res.status === 201) {
         setLoading(false);
       }

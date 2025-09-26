@@ -19,9 +19,13 @@ export default function Bookings() {
     <div>
       {agenciesBookingsList ? (
         <div>
-          {agenciesBookingsList.map((booking) => (
-            <BookingCard booking={booking} />
-          ))}
+          {agenciesBookingsList.map((booking) =>
+            booking.status === "Completed" ? (
+              <>No Booking Yet</>
+            ) : (
+              <BookingCard booking={booking} />
+            )
+          )}
         </div>
       ) : (
         <div>No Booking Here</div>

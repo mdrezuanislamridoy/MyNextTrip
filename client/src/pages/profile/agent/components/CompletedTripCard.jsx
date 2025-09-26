@@ -7,7 +7,7 @@ export default function CompletedTripCard({ trip }) {
         {trip.thumbnail ? (
           <img
             src={trip.thumbnail}
-            alt={trip.title}
+            alt={trip.travel.title}
             className="w-full h-full object-cover"
           />
         ) : (
@@ -18,17 +18,16 @@ export default function CompletedTripCard({ trip }) {
       </div>
 
       <div className="p-4">
-        <h3 className="text-lg font-semibold text-slate-800">{trip.title}</h3>
-        <p className="text-sm text-slate-500">{trip.location}</p>
+        <h3 className="text-lg font-semibold text-slate-800">
+          {trip.travel.title}
+        </h3>
+        <p className="text-sm text-slate-500">{trip.travel.location}</p>
 
         <div className="mt-2 text-sm text-slate-600">
-          <p>
-            {new Date(trip.startDate).toLocaleDateString()} -{" "}
-            {new Date(trip.endDate).toLocaleDateString()}
-          </p>
+          <p>{trip.tourDate.split("T")[0]}</p>
           <p>{trip.numberOfTraveler} Travelers</p>
           <p className="font-medium">
-            {trip.totalPrice} {trip.currency || "BDT"}
+            {trip.totalPrice} {trip.currency || "USD"}
           </p>
         </div>
       </div>

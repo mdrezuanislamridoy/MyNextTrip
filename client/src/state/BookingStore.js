@@ -73,8 +73,6 @@ const BookingStore = create((set) => {
       try {
         const res = await axiosInstance.get("/booking/agencyFinishedTravel");
 
-        console.log(res.data);
-
         return res.data;
       } catch (error) {
         return error.response.data.message || error;
