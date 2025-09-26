@@ -5,6 +5,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import Booking from "../components/Booking";
+import { Link } from "react-router-dom";
 
 export default function CanceledTravels({ bookings, loading }) {
   if (loading) {

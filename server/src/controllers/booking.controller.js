@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Booking = require("../models/booking.model");
 const Travel = require("../models/travel.model");
 const User = require("../models/user.model");
@@ -6,7 +7,7 @@ const addBooking = async (req, res) => {
   try {
     const travelId = req.params.id;
     const userId = req.userId;
-    let { numberOfTraveler, tourDate, paymentMethod } = req.body;
+    let { numberOfTraveler, tourDate, paymentMethod, totalPrice } = req.body;
 
     if (!tourDate) {
       return res.status(404).json({ message: "Date is missing" });
@@ -17,10 +18,8 @@ const addBooking = async (req, res) => {
     }
     const travel = await Travel.findById({ _id: travelId });
 
-    console.log(travel);
-
     if (!travel) {
-      return res.status(401).json({ message: "Travel id not found" });
+      return res.status(404).json({ message: "Travel id not found" });
     }
 
     const booking = await Booking.findOne({
@@ -32,21 +31,32 @@ const addBooking = async (req, res) => {
       return res.status(400).json({ message: "Already Booked" });
     }
 
-    const newBooking = await new Booking({
+    const newBooking = new Booking({
       travelId,
       travelerId: userId,
       tourName: travel.title,
       tourLocation: travel.location,
       tourDate,
       numberOfTraveler,
-      totalPrice: travel.price * numberOfTraveler,
+      totalPrice,
       paymentMethod,
     });
 
     await newBooking.save();
-    res
-      .status(200)
-      .json({ message: "Booking success, pay for confirm", newBooking });
+
+    if (paymentMethod === "cash") {
+      return res.status(200).json({
+        message: "Booking success, pay for confirm",
+        booking: newBooking,
+      });
+    }
+
+    if (paymentMethod === "sslcommerz") {
+      return res.status(200).json({
+        message: "Complete Payment To Confirm Your Order",
+        redirectUrl: `/payment/payBill/${newBooking._id}`,
+      });
+    }
   } catch (error) {
     res.status(400).json({ message: "Something went wrong" });
   }
@@ -107,7 +117,7 @@ const updateBooking = async (req, res) => {
     const userId = req.userId;
     const user = await User.findById(userId);
 
-    if (!user.role === "agency") {
+    if (user.role !== "agency") {
       return res.status(400).json({ message: "You're not an agency" });
     }
 
@@ -148,6 +158,50 @@ const getBooking = async (req, res) => {
     res.status(500).json({ message: error });
   }
 };
+const agencyFinishedTravel = async (req, res, next) => {
+  try {
+    const agencyId = req.agencyId;
+
+    const finishedTravels = await Booking.aggregate([
+      {
+        $match: { status: "Completed" },
+      },
+      {
+        $lookup: {
+          from: "travels",
+          localField: "travelId",
+          foreignField: "agencyId",
+          as: "travel",
+        },
+      },
+      { $unwind: "$travel" },
+      {
+        $match: {
+          "travel.agencyId": new mongoose.Types.ObjectId(agencyId),
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          travelerId: 1,
+          status: 1,
+          tourDate: 1,
+          numberOfTraveler: 1,
+          totalPrice: 1,
+          travel: 1,
+        },
+      },
+    ]);
+
+    console.log(finishedTravels);
+
+    res
+      .status(200)
+      .json({ message: "Travel Fetched Successfully", finishedTravels });
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   addBooking,
@@ -155,4 +209,5 @@ module.exports = {
   getBookings,
   updateBooking,
   getBooking,
+  agencyFinishedTravel,
 };

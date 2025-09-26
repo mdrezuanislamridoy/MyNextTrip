@@ -9,7 +9,7 @@ const addTravel = async (req, res, next) => {
   try {
     const { title, description, price, location, duration, categories, type } =
       req.body;
-    const agencyId = req.userId;
+    const agency = req.agency;
 
     if (
       !title ||
@@ -21,21 +21,12 @@ const addTravel = async (req, res, next) => {
     ) {
       return next(createError(400, "All fields are required"));
     }
-    console.log(req.body);
-
-    const agency = await User.findById(agencyId);
-    if (!agency || agency.role !== "agency") {
-      return next(createError(403, "You're not authorized to add travel"));
-    }
 
     if (!agency.address && !agency.phone) {
       return next(
-        createError(404),
-        "Address and Phone Number not added to Your Profile"
+        createError(404, "Address and Phone Number not added to Your Profile")
       );
     }
-
-    console.log(agency.address, agency.phone);
 
     const travel = new Travel({
       agencyId,
@@ -115,7 +106,8 @@ const getTravel = async (req, res, next) => {
 // Get travels of current agency
 const getAgencyTravels = async (req, res, next) => {
   try {
-    const agencyId = req.userId;
+    const agencyId = req.agencyId;
+
     const travels = await Travel.find({ agencyId }).sort({ createdAt: -1 });
 
     res.status(200).json({ travels });
@@ -163,6 +155,7 @@ const updateTravel = async (req, res, next) => {
     next(error);
   }
 };
+
 
 // Delete travel
 const deleteTravel = async (req, res, next) => {

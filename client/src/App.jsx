@@ -11,6 +11,10 @@ import ForgetPass from "./pages/auth/ForgetPass";
 import Travels from "./pages/travels/Travels";
 import SingleTravel from "./components/travels/SingleTravel";
 import BookingDetails from "./pages/profile/traveler/sections/BookingDetails";
+import BookingPage from "./pages/booking/Booking";
+import Success from "./pages/Payment/Success";
+import Failed from "./pages/payment/Failed";
+import Canceled from "./pages/payment/Canceled";
 
 export default function App() {
   const { user, profile, logout } = useAuthStore();
@@ -52,6 +56,10 @@ export default function App() {
               element={user ? <Profile /> : <Navigate to={"/login"} />}
             />
             <Route path="/bookings/:id" element={<BookingDetails />} />
+            <Route path="/booking/:id" element={<BookingPage />} />
+            <Route path="/payment/success/:id" element={<Success />} />
+            <Route path="/payment/failed/:id" element={<Failed />} />
+            <Route path="/payment/canceled/:id" element={<Canceled />} />
           </Routes>
         </>
       </BrowserRouter>

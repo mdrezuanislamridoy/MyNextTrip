@@ -14,6 +14,7 @@ const BookingRouter = require("./routes/booking.routes");
 const PaymentRouter = require("./routes/payment.routes");
 const userRouter = require("./routes/user.routes");
 const errorHandler = require("./middleware/errorHandler");
+const adminRouter = require("./routes/admin.routes");
 
 // Middleware
 app.use(express.json());
@@ -28,6 +29,7 @@ app.use(
 
 // Routes
 app.use("/api/auth", userRouter);
+app.use("/api/admin", adminRouter);
 app.use("/api/travel", TravelRouter);
 app.use("/api/booking", BookingRouter);
 app.use("/api/payment", PaymentRouter);

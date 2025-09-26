@@ -34,10 +34,10 @@ const BookingSchema = new mongoose.Schema(
       enum: ["Pending", "Confirmed", "Cancelled", "Completed"],
       default: "Pending",
     },
-    paymentMethod: { type: String, enum: ["COD", "SSLCommerz"] },
+    paymentMethod: { type: String, enum: ["cash", "sslcommerz"] },
     paymentStatus: {
       type: String,
-      enum: ["Pending", "Paid", "Failed"],
+      enum: ["Pending", "Paid", "Failed", "Canceled"],
       default: "Pending",
     },
     totalPrice: {

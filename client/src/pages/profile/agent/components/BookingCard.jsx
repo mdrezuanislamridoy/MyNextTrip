@@ -61,7 +61,6 @@ export default function BookingCard({ booking }) {
         </p>
       </div>
 
-      {/* Current status */}
       <div className="mt-4">
         <span className="font-medium text-sm">Status:</span>{" "}
         <span
@@ -79,7 +78,6 @@ export default function BookingCard({ booking }) {
         </span>
       </div>
 
-      {/* Actions */}
       <div className="mt-4 flex gap-3">
         {bookingStatus === "Pending" && (
           <>

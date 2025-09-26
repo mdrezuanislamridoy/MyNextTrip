@@ -6,7 +6,25 @@ const BookingStore = create((set) => {
     myBookings: [],
     agenciesBookingsList: [],
     loading: true,
+    message: "",
 
+    addBooking: async (bookingId, data) => {
+      try {
+        const res = await axiosInstance.post(
+          `/booking/addBooking/${bookingId}`,
+          data
+        );
+
+        set({ message: res?.data?.message });
+        return res.data;
+      } catch (error) {
+        console.log(error);
+        set({
+          loading: false,
+          message: error.response.data.message || error.message,
+        });
+      }
+    },
     getMyBookings: async () => {
       try {
         set({ loading: true });
@@ -26,7 +44,6 @@ const BookingStore = create((set) => {
           agenciesBookingsList: res.data.agencyBookings || [],
           loading: false,
         });
-        console.log(res.data);
 
         return res;
       } catch (error) {
@@ -39,7 +56,6 @@ const BookingStore = create((set) => {
         const res = axiosInstance.put(`/booking/updateBooking/${id}`, {
           status,
         });
-        console.log(res.data.message);
         return res;
       } catch (error) {
         console.log(error);
@@ -51,6 +67,17 @@ const BookingStore = create((set) => {
         return res.data;
       } catch (error) {
         console.error(error);
+      }
+    },
+    agencyFinishedTravel: async () => {
+      try {
+        const res = await axiosInstance.get("/booking/agencyFinishedTravel");
+
+        console.log(res.data);
+
+        return res.data;
+      } catch (error) {
+        return error.response.data.message || error;
       }
     },
   };
