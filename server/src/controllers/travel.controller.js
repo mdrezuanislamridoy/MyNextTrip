@@ -4,7 +4,6 @@ const cloud = require("../utils/cloudinary");
 const fs = require("fs");
 const createError = require("http-errors");
 
-// Add a new travel
 const addTravel = async (req, res, next) => {
   try {
     const { title, description, price, location, duration, categories, type } =
@@ -49,7 +48,6 @@ const addTravel = async (req, res, next) => {
   }
 };
 
-// Add travel image (Cloudinary + Multer)
 const addTravelImages = async (req, res, next) => {
   try {
     const travel = await Travel.findById(req.params.id);
@@ -72,7 +70,6 @@ const addTravelImages = async (req, res, next) => {
   }
 };
 
-// Get all travels (paginated)
 const getTravels = async (req, res, next) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -90,7 +87,6 @@ const getTravels = async (req, res, next) => {
   }
 };
 
-// Get single travel by ID
 const getTravel = async (req, res, next) => {
   try {
     const travel = await Travel.findById(req.params.id);
@@ -103,7 +99,6 @@ const getTravel = async (req, res, next) => {
   }
 };
 
-// Get travels of current agency
 const getAgencyTravels = async (req, res, next) => {
   try {
     const agencyId = req.agencyId;
@@ -116,7 +111,6 @@ const getAgencyTravels = async (req, res, next) => {
   }
 };
 
-// Search travels
 const searchTravels = async (req, res, next) => {
   try {
     const { q } = req.query;
@@ -141,7 +135,6 @@ const searchTravels = async (req, res, next) => {
   }
 };
 
-// Update travel
 const updateTravel = async (req, res, next) => {
   try {
     const travel = await Travel.findByIdAndUpdate(req.params.id, req.body, {
@@ -156,8 +149,6 @@ const updateTravel = async (req, res, next) => {
   }
 };
 
-
-// Delete travel
 const deleteTravel = async (req, res, next) => {
   try {
     const travel = await Travel.findByIdAndDelete(req.params.id);
