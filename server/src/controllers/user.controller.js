@@ -221,7 +221,7 @@ const updateProfilePicture = async (req, res, next) => {
     const photo = req.file;
 
     const result = await cloudinary.uploader.upload(photo.path, {
-      folder: "sonod/userPhoto",
+      folder: "myNextTrip/userPhoto",
     });
 
     fs.unlinkSync(photo.path);
@@ -247,7 +247,7 @@ const updateCoverPicture = async (req, res, next) => {
     const photo = req.file;
 
     const result = await cloudinary.uploader.upload(photo.path, {
-      folder: "sonod/coverPhoto",
+      folder: "myNextTrip/coverPhoto",
     });
 
     fs.unlinkSync(photo.path);

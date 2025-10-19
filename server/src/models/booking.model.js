@@ -6,15 +6,18 @@ const BookingSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
+      index: true,
     },
     travelId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Travel",
       required: true,
+      index: true,
     },
     tourName: {
       type: String,
       required: true,
+      index: true,
     },
     tourLocation: {
       type: String,

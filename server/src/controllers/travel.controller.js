@@ -6,13 +6,22 @@ const createError = require("http-errors");
 
 const addTravel = async (req, res, next) => {
   try {
-    const { title, description, price, location, duration, categories, type } =
-      req.body;
+    const {
+      title,
+      description,
+      tourType,
+      price,
+      location,
+      duration,
+      categories,
+      type,
+    } = req.body;
     const agency = req.agency;
 
     if (
       !title ||
       !description ||
+      !tourType ||
       !price ||
       !categories ||
       !location ||
@@ -28,12 +37,13 @@ const addTravel = async (req, res, next) => {
     }
 
     const travel = new Travel({
-      agencyId,
+      agencyId: req.agencyId,
       title,
       type,
       description,
       price,
       location,
+      type: tourType,
       duration,
       categories,
       email: agency.email,
